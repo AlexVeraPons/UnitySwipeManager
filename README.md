@@ -52,7 +52,7 @@ If you need any help with the observer pattern you can watch this video i recomm
 A string will be sent with the according directions ( the possible strings will change depending on the state), all the possible strings are = "Up", "UpRight", "Right", "DownRight", "Down", "DownLeft", "Left", "UpLeft".
 
 
-## If using percentageState
+## If using Percentage State
 
 Instead of "subscribing" to OnSwipe, you have to "subscribe" to OnOnSwipePercentage. 
 
