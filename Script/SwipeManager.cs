@@ -2,27 +2,29 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+[HelpURL("&lt;https://github.com/AlexVeraPons/UnitySwipeManager")] 
+
+
 public class SwipeManager : MonoBehaviour
 {
 
     public static Action<string> OnSwipe;
-    public static Action<Dictionary<string, float>> OnSwipePercentage;
+    public static Action<Dictionary<string, float>> OnOnSwipePercentage;
 
 
-    private bool m_endSwipe = false; // this is used to avoid multiple swipes in the same frame
+    private bool m_endSwipe = false;
 
     [Range(0.0f, 100.0f)]
     [SerializeField] private float m_minDistancePercent = 15; // when this percentage of the screen is exceeded the swipe will trigger
     // percentage is applied to smallest distance width or height
     private float m_minDistance; // the minimum distance to swipe
 
-    private Vector2 m_startPos; // the position where the swipe started
-    private Vector2 m_endPos; // the position where the swipe ended
+    private Vector2 m_startPos;
+    private Vector2 m_endPos;
 
     private float m_screenWidth;
     private float m_screenHeight;
 
-    // this is used to set the possible directions of the swipe
     public enum SwipeDirections
     {
         UpDown,
@@ -36,13 +38,14 @@ public class SwipeManager : MonoBehaviour
     [Range(0.0f, 100f)]
     [Header("Eight Directions")]
 
-
     [SerializeField] private float m_neededSimilarity = 80f; // THIS IS ONLY USED IF POSSIBLE DIRECTIONS IS EIGHT DIRECTIONS
 
-    private Dictionary<string, float> m_percentages = new Dictionary<string, float>(); // this is used to store the percentages of the swipe in each direction
+    private Dictionary<string, float> m_percentages = new Dictionary<string, float>();
 
     void Start()
     {
+
+
         // get the screen width and height
         m_screenWidth = Screen.width;
         m_screenHeight = Screen.height;
@@ -58,6 +61,8 @@ public class SwipeManager : MonoBehaviour
         m_percentages.Add("Down", 0);
         m_percentages.Add("Left", 0);
         m_percentages.Add("Right", 0);
+
+
     }
 
     void Update()
@@ -78,10 +83,11 @@ public class SwipeManager : MonoBehaviour
             if (Mathf.Abs(Vector2.Distance(m_startPos, touch.position)) >= m_minDistance && m_endSwipe == false)
             {
                 m_endPos = touch.position;
+                ResetPercentageDictionary();
                 PercentageCalculator();
                 StateManager();
+
                 m_endSwipe = true;
-                Debug.Log("Swipe");
             }
             if (touch.phase == TouchPhase.Ended)
             {
@@ -90,6 +96,15 @@ public class SwipeManager : MonoBehaviour
             }
         }
 
+    }
+
+    // reset the percentages dictionary
+    private void ResetPercentageDictionary()
+    {
+        m_percentages["Up"] = 0;
+        m_percentages["Down"] = 0;
+        m_percentages["Left"] = 0;
+        m_percentages["Right"] = 0;
     }
 
     // calculate the percentage of the swipe in each direction (up, down, left, right)
@@ -108,19 +123,33 @@ public class SwipeManager : MonoBehaviour
         Vector2 directionVector = m_endPos - m_startPos;
         directionVector = directionVector.normalized;
 
-        // calculate the percentage of the swipe in each direction
-        foreach (KeyValuePair<string, Vector2> direction in directions)
+        //then we check if the direction is negative or positive
+
+        if (directionVector.x < 0)
         {
-            float percentage = Vector2.Dot(directionVector, direction.Value) * 100;
-            if (percentage < 0) percentage = 0;
-            m_percentages[direction.Key] = percentage;
+            m_percentages["Left"] = Mathf.Abs(directionVector.x) * 100;
         }
+        else
+        {
+            m_percentages["Right"] = Mathf.Abs(directionVector.x) * 100;
+        }
+
+        if (directionVector.y < 0)
+        {
+            m_percentages["Down"] = Mathf.Abs(directionVector.y) * 100;
+        }
+        else
+        {
+            m_percentages["Up"] = Mathf.Abs(directionVector.y) * 100;
+        }
+
+        // calculate the percentage of the swipe in each direction
+        // first we get the two highest percentages value and string
     }
 
     // check the swipe directions and call the corresponding functions
     private void StateManager()
     {
-        Debug.Log("StateManager");
         switch (PossibleDirections)
         {
             case SwipeDirections.UpDown:
@@ -206,10 +235,6 @@ public class SwipeManager : MonoBehaviour
             }
         }
 
-        Debug.Log(firstPerceFloat);
-        Debug.Log(secondPerceFloat);
-        Debug.Log((Mathf.Abs(secondPerceFloat) / Mathf.Abs(firstPerceFloat)) * 100);
-
         // then we check if the difference between the two percentages is greater than 0.8
         if ((secondPerceFloat / firstPerceFloat) * 100 >= m_neededSimilarity)
         {
@@ -225,8 +250,6 @@ public class SwipeManager : MonoBehaviour
                 result = secondPerceString + firstPerceString;
             }
             OnSwipe?.Invoke(result);
-            Debug.Log(result);
-
         }
         else
         {
