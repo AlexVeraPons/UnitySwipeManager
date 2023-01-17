@@ -6,7 +6,7 @@ public class SwipeManager : MonoBehaviour
 {
 
     public static Action<string> OnSwipe;
-    public static Action<Dictionary<string, float>> OnOnSwipePercentage;
+    public static Action<Dictionary<string, float>> OnSwipePercentage;
 
 
     private bool m_endSwipe = false; // this is used to avoid multiple swipes in the same frame
@@ -34,7 +34,8 @@ public class SwipeManager : MonoBehaviour
 
     public SwipeDirections PossibleDirections;
     [Range(0.0f, 100f)]
-    [Header("Swipe")]
+    [Header("Eight Directions")]
+
 
     [SerializeField] private float m_neededSimilarity = 80f; // THIS IS ONLY USED IF POSSIBLE DIRECTIONS IS EIGHT DIRECTIONS
 
@@ -42,8 +43,6 @@ public class SwipeManager : MonoBehaviour
 
     void Start()
     {
-
-
         // get the screen width and height
         m_screenWidth = Screen.width;
         m_screenHeight = Screen.height;
@@ -59,8 +58,6 @@ public class SwipeManager : MonoBehaviour
         m_percentages.Add("Down", 0);
         m_percentages.Add("Left", 0);
         m_percentages.Add("Right", 0);
-
-
     }
 
     void Update()
