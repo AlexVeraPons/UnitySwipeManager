@@ -1,4 +1,6 @@
 # UnitySwipeManager
+**Update: currently working on adjusting the percentages since they are slightly off**
+
 Fed up of having to make a different swipe manager for you mobile Unity games, here you have a fast and effective one fits all solution!
 
 A simple swipe manager for unity mobile, easy to use. Perfect for Game Jams or more lengthy projects.
@@ -59,5 +61,17 @@ You will be returned a dictonary with each direction in a string and each percen
 
 # How does it work 
 
+When you touch the screen and slide your finger if you exceed m_minDistance then the swipe starts being calculated. First the percentage is calculated, and then depending on the state different calculations will occure to then call the event and send the direction.
+
+Here is an image that represents it.
+
+![image](https://user-images.githubusercontent.com/107070295/213020609-8f0d92dd-0e5d-4db7-a619-64bfa4f52321.png)
+
+
 # More Info 
+
+If you need anything please feel free to mail me or message me.
+
+I will be doing some changes in the near future to improve the script and if you have any suggestions i will implement them aswell.
+
 
