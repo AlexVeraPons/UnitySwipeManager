@@ -1,5 +1,5 @@
 # UnitySwipeManager
-**Update: currently working on adjusting the percentages since they are slightly off**
+**Update: currently working on adjusting the percentages since they are slightly off and on a demo to show off the script**
 
 Fed up of having to make a different swipe manager for you mobile Unity games, here you have a fast and effective one fits all solution!
 
