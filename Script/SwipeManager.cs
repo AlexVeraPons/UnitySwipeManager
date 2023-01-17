@@ -2,15 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-//----------------------------------------------------------------
-// TODO LIST
-//----------------------------------------------------------------
-// - Preguntar al profesor de desarrollo que es mejor usar un array o un diccionario cuando mandas la señal de percentage swipe [ ]
-// - Preguntar al profesor de experiencia de usuario cuanta cantidad deberia ser considerado un downright swipe [ ]
-// - Acomodar el script a su respuesta [ ]
-// - Añadir un help (ejemplo) [HelpURL("&lt;https://www.youtube.com/channel/UCGjv_3tbzJ8yKuvacoqmO-Q&gt;")] [ ]
-
-
 public class SwipeManager : MonoBehaviour
 {
 
@@ -18,19 +9,20 @@ public class SwipeManager : MonoBehaviour
     public static Action<Dictionary<string, float>> OnOnSwipePercentage;
 
 
-    private bool m_endSwipe = false;
+    private bool m_endSwipe = false; // this is used to avoid multiple swipes in the same frame
 
     [Range(0.0f, 100.0f)]
     [SerializeField] private float m_minDistancePercent = 15; // when this percentage of the screen is exceeded the swipe will trigger
     // percentage is applied to smallest distance width or height
     private float m_minDistance; // the minimum distance to swipe
 
-    private Vector2 m_startPos;
-    private Vector2 m_endPos;
+    private Vector2 m_startPos; // the position where the swipe started
+    private Vector2 m_endPos; // the position where the swipe ended
 
     private float m_screenWidth;
     private float m_screenHeight;
 
+    // this is used to set the possible directions of the swipe
     public enum SwipeDirections
     {
         UpDown,
@@ -45,9 +37,8 @@ public class SwipeManager : MonoBehaviour
     [Header("Swipe")]
 
     [SerializeField] private float m_neededSimilarity = 80f; // THIS IS ONLY USED IF POSSIBLE DIRECTIONS IS EIGHT DIRECTIONS
-    [TextArea] public string AboutNeededSimilarity;
 
-    private Dictionary<string, float> m_percentages = new Dictionary<string, float>();
+    private Dictionary<string, float> m_percentages = new Dictionary<string, float>(); // this is used to store the percentages of the swipe in each direction
 
     void Start()
     {
