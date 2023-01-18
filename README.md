@@ -47,7 +47,7 @@ Then in the script you want to access the swipe information you will have to "su
 
 The function you insert will then be called whenever a swipe is detected. == !!! MAKE SURE YOUR FUNCTION HAS A STRING AS A PARAMETER!!! ==
 
-If you need any help with the observer pattern you can watch this video I recommend (not made by me https://www.youtube.com/watch?v=8fcI8W9NBEo&ab_channel=Comp-3Interactive) or you can send me a mail or message.
+If you need any help with the observer pattern you can watch this video I recommend (not made by me https://www.youtube.com/watch?v=8fcI8W9NBEo&ab_channel=Comp-3Interactive) or you can send me a mail (alexandroverapons@gmail.com) or message.
 
 A string will be sent with the according directions ( the possible strings will change depending on the state), all the possible strings are = "Up", "UpRight", "Right", "DownRight", "Down", "DownLeft", "Left", "UpLeft".
 
