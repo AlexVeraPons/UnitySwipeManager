@@ -16,7 +16,7 @@ Using the observer pattern to make sure the implementation is easy and easily sc
     - *Eight Sides :*  Determines if the direction of the swipe went in any of the possible eight directions (Up, Down, Left, Right, UpRight, UpLeft ...)
     - *Percentages :* Sends you the percentage it went in each direction (up: 40%, right: 60%) if you need more precision
 
-- Make changing its behaviour easy by allowing you to change its various variables inside the Unity Editor. 
+- Changing its behaviour easy by allowing you to change its various variables inside the Unity Editor. 
 
 # How to use it
 
